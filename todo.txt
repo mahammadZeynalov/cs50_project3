@@ -1,0 +1,7 @@
+1. Setup Navigation
+2. I will have 1 navigation for auth (login/ registration)
+3. 1 drawer navigation when logged in
+4. drawer: 1. Who is Trump? 2. All news 3. News Detailed
+
+Now todo:
+1. Setup all screen navagations
