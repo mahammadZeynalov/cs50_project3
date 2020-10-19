@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 router.post('/register', async (req, res) => {
     //validate data
     const { error } = registerValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.error(400).send(error.details[0].message);
 
     //Checking if the user is already in the database
     const emailExist = await User.findOne({ email: req.body.email });
@@ -53,6 +53,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/token', async (req, res) => {
+    console.log('came there')
     const token = req.body.token;
     if (!token) return res.status(401).send('Not auth');
     try {

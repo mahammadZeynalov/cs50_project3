@@ -19,8 +19,8 @@ const Stack = createStackNavigator();
 export default function App() {
 
   const tokenAuth = useAuthStore(state => state.tokenAuth);
-  const loginLoading = useAuthStore(state => state.loginLoading);
-  const loginError = useAuthStore(state => state.loginError);
+  const isSigned = useAuthStore(state => state.isSigned);
+  const tokenAuthLoading = useAuthStore(state => state.tokenAuthLoading);
 
   useEffect(() => {
     tokenAuth();
@@ -28,22 +28,20 @@ export default function App() {
   return (
     <NavigationContainer>
       {
-        loginError ?
-          <Stack.Navigator>
-            <Stack.Screen name='SignIn' component={SignInScreen} />
-            <Stack.Screen name='SignUp' component={SignUpScreen} />
-          </Stack.Navigator>
-          :
-          <Stack.Navigator>
-            <Stack.Screen name='News' component={NewsScreen} />
-            <Stack.Screen name='NewsDetailed' component={NewsDetailedScreen} />
-          </Stack.Navigator>
-      }
-      {
-        loginLoading &&
-        <View style = {styles.fullScreen}>
-          <Spinner />
-        </View>
+        tokenAuthLoading ?
+          <View style={styles.fullScreen}>
+            <Spinner />
+          </View> :
+          !isSigned ?
+            <Stack.Navigator>
+              <Stack.Screen name='SignIn' component={SignInScreen} />
+              <Stack.Screen name='SignUp' component={SignUpScreen} />
+            </Stack.Navigator>
+            :
+            <Stack.Navigator>
+              <Stack.Screen name='News' component={NewsScreen} />
+              <Stack.Screen name='NewsDetailed' component={NewsDetailedScreen} />
+            </Stack.Navigator>
       }
     </NavigationContainer>
   );
