@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/drawer": "^5.9.3",
     "@react-navigation/native": "^5.7.6",
     "@react-navigation/stack": "^5.9.3",
+    "axios": "^0.20.0",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -41,5 +43,6 @@
     "@types/react-native": "~0.63.2",
     "typescript": "~3.9.5"
   },
-  "private": true
+  "private": true,
+  "proxy": "http://192.168.1.2:3000/api"
 }

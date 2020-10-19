@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cors());
 
 //Route middlewares
-app.use('/api/user', authRoute);
+app.use('/api/auth', authRoute);
 
 const port = process.env.PORT
 app.listen(port, () => {
