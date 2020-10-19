@@ -1,5 +1,6 @@
 import { DefaultTheme } from 'react-native-paper';
 export const url: string = 'http://192.168.1.2:3000/api';
+export const api_key = '0dc0391886764d96b958dbe8a8b4b682';
 
 export const theme = {
   ...DefaultTheme,

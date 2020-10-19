@@ -15,6 +15,7 @@
     "@react-navigation/drawer": "^5.9.3",
     "@react-navigation/native": "^5.7.6",
     "@react-navigation/stack": "^5.9.3",
+    "@types/node": "^14.11.10",
     "@types/react-native-loading-spinner-overlay": "^0.5.2",
     "axios": "^0.20.0",
     "bcrypt": "^5.0.0",

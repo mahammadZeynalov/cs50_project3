@@ -18,7 +18,6 @@ const Stack = createStackNavigator();
 export default function App() {
 
   const isSigned = useAuthStore(state => state.isSigned);
-  console.log(isSigned);
 
   const tokenAuth = useAuthStore(state => state.tokenAuth);
 
@@ -37,7 +36,7 @@ export default function App() {
               <Stack.Screen name='Register' component={RegisterScreen} />
             </Stack.Navigator>
             :
-            <Stack.Navigator>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
               <Stack.Screen name='News' component={NewsScreen} />
               <Stack.Screen name='NewsDetailed' component={NewsDetailedScreen} />
             </Stack.Navigator>
