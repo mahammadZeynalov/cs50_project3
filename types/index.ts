@@ -4,7 +4,7 @@ export interface IUser {
 }
 
 export type Navigation = {
-    navigate: (scene: string) => void;
+    navigate: (scene: string, item?: any) => void;
   };
 
   export interface IArticle {
@@ -16,7 +16,7 @@ export type Navigation = {
     title: string
     description: string
     url: string
-    urlToImage: null | string
+    urlToImage: string
     publishedAt: string
     content: string
 }

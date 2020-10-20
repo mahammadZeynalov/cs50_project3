@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import { Text } from 'react-native';
 
 interface IProps {
@@ -10,4 +10,4 @@ const Error = ({ error }: IProps) => {
     else return null
 }
 
-export default Error;
+export default memo(Error);

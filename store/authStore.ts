@@ -3,7 +3,6 @@ import { IUser } from '../types';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import { url } from '../utils';
-import { Alert } from 'react-native';
 
 type AuthStore = {
     isSigned: boolean
@@ -26,6 +25,7 @@ export const useAuthStore = create<AuthStore>(set => ({
         };
         set({ user, isSigned: true });
         await AsyncStorage.setItem('user', JSON.stringify(user));
+        const test = await AsyncStorage.getItem('user');
     },
     tokenAuth: async () => {
         const user = await AsyncStorage.getItem('user');
@@ -36,7 +36,7 @@ export const useAuthStore = create<AuthStore>(set => ({
     },
     logout: async () => {
         await AsyncStorage.clear();
-        set({ user: null });
+        set({ user: null, isSigned: false });
     },
     register: async (email, password) => {
         const credentials = { email, password }

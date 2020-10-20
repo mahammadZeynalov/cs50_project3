@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import React, { useEffect } from 'react';
+import { Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
 import NewsScreen from './screens/NewsScreen';
-import NewsDetailedScreen from './screens/NewsDetailedScreen';
 import { useAuthStore } from './store/authStore';
-import { Spinner } from 'native-base';
 import { Provider } from 'react-native-paper';
 import { theme } from './utils';
 import HomeScreen from './screens/HomeScreen';
@@ -38,7 +36,6 @@ export default function App() {
             :
             <Stack.Navigator screenOptions={{ headerShown: false }}>
               <Stack.Screen name='News' component={NewsScreen} />
-              <Stack.Screen name='NewsDetailed' component={NewsDetailedScreen} />
             </Stack.Navigator>
         }
       </NavigationContainer>

@@ -18,8 +18,8 @@ type Props = {
 };
 
 const LoginScreen = ({ navigation }: Props) => {
-    const [email, setEmail] = useState({ value: '', error: '' });
-    const [password, setPassword] = useState({ value: '', error: '' });
+    const [email, setEmail] = useState({ value: 'admin@admin.com', error: '' });
+    const [password, setPassword] = useState({ value: '123456', error: '' });
 
     const login = useAuthStore(state => state.login);
     const [loading, setLoading] = useState(false);

@@ -1,46 +1,60 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import AppBar from '../components/AppBar';
-import { FlatList, Text } from 'react-native';
+import Error from '../components/Error';
+import { FlatList } from 'react-native';
 import { useNewsStore } from '../store/newsStore';
-import { IArticle } from '../types';
-import { Item } from 'react-native-paper/lib/typescript/src/components/List/List';
+import { IArticle, Navigation } from '../types';
+import Card from '../components/Card';
+import Spinner from 'react-native-loading-spinner-overlay';
 
-const NewsScreen: React.FC = () => {
+interface IProps {
+    navigation: Navigation;
+    item: IArticle
+};
+
+interface IRenderItemProps {
+    item: IArticle
+}
+
+const NewsScreen = () => {
 
     const news = useNewsStore(state => state.news);
     const fetchNews = useNewsStore(state => state.fetchNews);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    console.log(news.length);
+    const loading = useNewsStore(state => state.loading);
+    const error = useNewsStore(state => state.error);
 
     useEffect(() => {
-        const getNewsAsync = async () => {
-            try {
-                setLoading(true);
-                await fetchNews();
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        }
-        getNewsAsync();
+        fetchNews();
     }, []);
 
-    const renderItem = (props: any) => {
-        const item: IArticle = props.item
+    const renderItem = ({ item }: IRenderItemProps) => {
         return (
-            <Text>{item.title}</Text>
+            <Card
+                url={item.url}
+                title={item.title}
+                description={item.description}
+                urlToImage={item.urlToImage}
+                name={item.source.name}
+                publishedAt={item.publishedAt}
+            />
         )
-    };
+    }
 
     return (
         <>
             <AppBar />
+
+            <Error error={error} />
+
             <FlatList
                 data={news}
                 renderItem={renderItem}
-                keyExtractor={item => item.publishedAt}
+                keyExtractor={item => item.url}
+            />
+
+            <Spinner
+                visible={loading}
+                textContent={'Loading...'}
             />
         </>
     )
