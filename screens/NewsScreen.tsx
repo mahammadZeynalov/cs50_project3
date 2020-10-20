@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import AppBar from '../components/AppBar';
 import Error from '../components/Error';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import { useNewsStore } from '../store/newsStore';
 import { IArticle, Navigation } from '../types';
 import Card from '../components/Card';
-import Spinner from 'react-native-loading-spinner-overlay';
+import { Spinner as NativeBaseSpinner } from 'native-base';
+import { theme } from '../utils';
 
 interface IProps {
     navigation: Navigation;
@@ -24,7 +25,7 @@ const NewsScreen = () => {
     const error = useNewsStore(state => state.error);
 
     useEffect(() => {
-        fetchNews();
+        fetchNews('initialFetch');
     }, []);
 
     const renderItem = ({ item }: IRenderItemProps) => {
@@ -40,6 +41,12 @@ const NewsScreen = () => {
         )
     }
 
+    // Render Footer
+    const renderFooter = () => {
+        if (loading && news.length > 0) return <NativeBaseSpinner animating={true} color={theme.colors.primary} />
+        else return <NativeBaseSpinner animating={false} />
+    };
+
     return (
         <>
             <AppBar />
@@ -49,12 +56,10 @@ const NewsScreen = () => {
             <FlatList
                 data={news}
                 renderItem={renderItem}
-                keyExtractor={item => item.url}
-            />
-
-            <Spinner
-                visible={loading}
-                textContent={'Loading...'}
+                keyExtractor={(_, index) => String(index)}
+                onEndReached={() => fetchNews('fetchMore')}
+                ListFooterComponent={renderFooter}
+                refreshControl={<RefreshControl refreshing={loading} onRefresh={() => fetchNews('refresh')} />}
             />
         </>
     )
